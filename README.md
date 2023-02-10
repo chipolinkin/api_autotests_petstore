@@ -1,5 +1,5 @@
 # API autotests project
-## Project based on Python/PyTest/Requests
+## based on Python/PyTest/Requests
 ### The project consists of:
 #### data.py - constants, input data
 #### conftest.py - fixtures
