@@ -3,5 +3,5 @@
 ### The project consists of:
 #### data.py - constants, input data
 #### conftest.py - fixtures
-#### requests_petstore - REST API methods
-#### tests_petstore - tests
+#### requests_petstore.py - REST API methods
+#### tests_petstore.py - tests
