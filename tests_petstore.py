@@ -9,7 +9,7 @@ def test_create_pet(idpet, namepet):
     # create pet
     newpet = requests_petstore.create_pet(idpet, namepet)
     assert newpet.status_code == 200
-    # unpack json
+    #deserialize json
     newpet = json.loads(newpet.content)
     # check data of response
     requests_petstore.validate_response(newpet)
