@@ -1,24 +1,25 @@
-import data
 import requests_petstore
-import pytest
 import json
+import allure
+import pytest
 
 
-
+@allure.story('Creating a pet')
 def test_create_pet(idpet, namepet):
     # create pet
     newpet = requests_petstore.create_pet(idpet, namepet)
     assert newpet.status_code == 200
-    #unpack json
+    # unpack json
     newpet = json.loads(newpet.content)
-    #check data of response
+    # check data of response
     requests_petstore.validate_response(newpet)
     assert newpet["id"] == idpet
     assert newpet["name"] == namepet
-    #delete the pet after test
+    # delete the pet after test
     requests_petstore.delete_pet(idpet)
 
 
+@allure.story('Checking an existing pet')
 def test_check_pet_via_get_request(idpet, namepet):
     pet = requests_petstore.create_pet(idpet, namepet)
     assert pet.status_code == 200
@@ -31,6 +32,7 @@ def test_check_pet_via_get_request(idpet, namepet):
     requests_petstore.delete_pet(idpet)
 
 
+@allure.story('Updating a pet')
 def test_update_pet_via_put_request(idpet, namepet):
     pet = requests_petstore.create_pet(idpet, namepet)
     assert pet.status_code == 200
@@ -43,6 +45,7 @@ def test_update_pet_via_put_request(idpet, namepet):
     requests_petstore.delete_pet(idpet)
 
 
+@allure.story('Deleting a pet')
 def test_delete_pet(idpet, namepet):
     newpet = requests_petstore.create_pet(idpet, namepet)
     assert newpet.status_code == 200
@@ -54,21 +57,14 @@ def test_delete_pet(idpet, namepet):
     assert non_existent_pet.status_code == 404
 
 
-#negative tests for pet section of the store
-
+# negative tests for pet section of the store
+@allure.story('Checking a non-existent pet')
 def test_get_request_non_exist_pet():
     pet = requests_petstore.get_pet("909090192")
     assert pet.status_code == 404
 
 
+@allure.story('Trying to delete a non-existent pet')
 def test_delete_non_exist_pet():
     pet = requests_petstore.delete_pet("923400292")
     assert pet.status_code == 404
-
-
-
-
-
-
-
-

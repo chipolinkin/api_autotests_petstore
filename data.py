@@ -35,4 +35,3 @@ request_body = {
     ],
     "status": "available"
 }
-
