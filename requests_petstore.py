@@ -7,7 +7,7 @@ headers = data.request_headers
 body = data.request_body
 
 
-#requests for PET section (Everything about your pets)
+# requests for PET section (Everything about your pets)
 def create_body(id, name):
     body["id"] = id
     body["name"] = name
@@ -35,8 +35,8 @@ def delete_pet(id):
     try:
         response = requests.delete(url=url + str(id), headers=headers)
         return response
-    except:
-        print("Pet doesn't exist!")
+    except Exception as e:
+        print(f"ERROR {e}, Pet doesn't exist!")
 
 
 def validate_response(response):
@@ -53,5 +53,3 @@ def validate_response(response):
     assert (type(response["tags"][0]["id"])) == int
     assert (type(response["tags"][0]["name"])) == str
     assert (type(response["status"])) == str
-
-
