@@ -3,12 +3,12 @@ import data
 
 
 @pytest.fixture
-def idpet():
-    idpet = data.generate_pet_id()
-    return idpet
+def id_pet():
+    id_pet = data.generate_pet_id()
+    return id_pet
 
 
 @pytest.fixture
-def namepet():
-    namepet = data.pet_name
-    return namepet
+def name_pet():
+    name_pet = data.pet_name
+    return name_pet
