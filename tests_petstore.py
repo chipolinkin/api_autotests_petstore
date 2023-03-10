@@ -1,59 +1,58 @@
 import requests_petstore
 import json
 import allure
-import pytest
 
 
 @allure.story('Creating a pet')
-def test_create_pet(idpet, namepet):
+def test_create_pet(id_pet, name_pet):
     # create pet
-    newpet = requests_petstore.create_pet(idpet, namepet)
+    newpet = requests_petstore.create_pet(id_pet, name_pet)
     assert newpet.status_code == 200
-    # unpack json
+    # deserialize json
     newpet = json.loads(newpet.content)
     # check data of response
     requests_petstore.validate_response(newpet)
-    assert newpet["id"] == idpet
-    assert newpet["name"] == namepet
+    assert newpet["id"] == id_pet
+    assert newpet["name"] == name_pet
     # delete the pet after test
-    requests_petstore.delete_pet(idpet)
+    requests_petstore.delete_pet(id_pet)
 
 
 @allure.story('Checking an existing pet')
-def test_check_pet_via_get_request(idpet, namepet):
-    pet = requests_petstore.create_pet(idpet, namepet)
+def test_check_pet_via_get_request(id_pet, name_pet):
+    pet = requests_petstore.create_pet(id_pet, name_pet)
     assert pet.status_code == 200
-    getpet = requests_petstore.get_pet(idpet)
+    getpet = requests_petstore.get_pet(id_pet)
     assert getpet.status_code == 200
     getpet = json.loads(getpet.content)
     requests_petstore.validate_response(getpet)
-    assert getpet["id"] == idpet
-    assert getpet["name"] == namepet
-    requests_petstore.delete_pet(idpet)
+    assert getpet["id"] == id_pet
+    assert getpet["name"] == name_pet
+    requests_petstore.delete_pet(id_pet)
 
 
 @allure.story('Updating a pet')
-def test_update_pet_via_put_request(idpet, namepet):
-    pet = requests_petstore.create_pet(idpet, namepet)
+def test_update_pet_via_put_request(id_pet, name_pet):
+    pet = requests_petstore.create_pet(id_pet, name_pet)
     assert pet.status_code == 200
-    updpet = requests_petstore.update_pet(idpet, "Harold")
+    updpet = requests_petstore.update_pet(id_pet, "Harold")
     assert updpet.status_code == 200
     updpet = json.loads(updpet.content)
     requests_petstore.validate_response(updpet)
-    assert updpet["id"] == idpet
+    assert updpet["id"] == id_pet
     assert updpet["name"] == "Harold"
-    requests_petstore.delete_pet(idpet)
+    requests_petstore.delete_pet(id_pet)
 
 
 @allure.story('Deleting a pet')
-def test_delete_pet(idpet, namepet):
-    newpet = requests_petstore.create_pet(idpet, namepet)
+def test_delete_pet(id_pet, name_pet):
+    newpet = requests_petstore.create_pet(id_pet, name_pet)
     assert newpet.status_code == 200
-    get_newpet = requests_petstore.get_pet(idpet)
+    get_newpet = requests_petstore.get_pet(id_pet)
     assert newpet.content == get_newpet.content
-    delpet = requests_petstore.delete_pet(idpet)
+    delpet = requests_petstore.delete_pet(id_pet)
     assert delpet.status_code == 200
-    non_existent_pet = requests_petstore.get_pet(idpet)
+    non_existent_pet = requests_petstore.get_pet(id_pet)
     assert non_existent_pet.status_code == 404
 
 

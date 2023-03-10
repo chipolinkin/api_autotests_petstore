@@ -8,32 +8,32 @@ body = data.request_body
 
 
 # requests for PET section (Everything about your pets)
-def create_body(id, name):
-    body["id"] = id
-    body["name"] = name
+def create_body(pet_id, pet_name):
+    body["id"] = pet_id
+    body["name"] = pet_name
     return body
 
 
-def create_pet(id, name):
-    create_body(id, name)
+def create_pet(pet_id, pet_name):
+    create_body(pet_id, pet_name)
     response = requests.post(url=url, headers=headers, json=body)
     return response
 
 
-def get_pet(id):
-    response = requests.get(url=url + str(id), headers=headers)
+def get_pet(pet_id):
+    response = requests.get(url=url + str(pet_id), headers=headers)
     return response
 
 
-def update_pet(id, name):
-    create_body(id, name)
+def update_pet(pet_id, pet_name):
+    create_body(pet_id, pet_name)
     response = requests.put(url=url, headers=headers, json=body)
     return response
 
 
-def delete_pet(id):
+def delete_pet(pet_id):
     try:
-        response = requests.delete(url=url + str(id), headers=headers)
+        response = requests.delete(url=url + str(pet_id), headers=headers)
         return response
     except Exception as e:
         print(f"ERROR {e}, Pet doesn't exist!")
